@@ -1,26 +1,60 @@
+/* src/app/globals.css */
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* --- Tema Claro Modernizado --- */
+  --color-background-primary: #f9fafb; /* Branco mais suave e acinzentado */
+  --color-background-secondary: #f0f2f5; /* Cinza muito claro com tom azulado */
+  --color-background-accent: #f7f7ff; /* Cinza neutro para hovers */
+
+  --color-text-primary: #111827; /* Preto azulado mais moderno */
+  --color-text-secondary: #4b5563; /* Cinza médio com melhor legibilidade */
+  --color-text-heading: #111827; /* Consistente mas com tom mais rico */
+
+  --color-brand-primary: #3b82f6; /* Azul mais vibrante e atual */
+  --color-brand-secondary: #2563eb; /* Azul mais saturado para contrastes */
+
+  --color-border: #d1d5db; /* Cinza neutro para bordas */
+
+  /* Cores de feedback modernizadas */
+  --color-success: #10b981; /* Verde esmeralda mais suave */
+  --color-warning: #f59e0b; /* Âmbar mais quente */
+  --color-error: #ef4444; /* Vermelho mais limpo */
+
+  /* Cores adicionais para complexidade */
+  --color-brand-accent: #8b5cf6; /* Roxo para destaques secundários */
+  --color-brand-tertiary: #ec4899; /* Rosa para elementos especiais */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* --- Tema Escuro Premium --- */
+@layer theme {
+  .dark {
+    /* FUNDO - Tons profundos com nuance azulada */
+    --color-background-primary: #0a0e17; /* Azul naval quase preto */
+    --color-background-secondary: #131a2a; /* Azul petróleo */
+    --color-background-accent: #1d2638; /* Azul aço escuro */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* TEXTO - Contraste premium */
+    --color-text-primary: #e0e7ff; /* Branco azulado suave */
+    --color-text-secondary: #94a3c2; /* Azul acinzentado */
+    --color-text-heading: #ffffff; /* Branco puro */
+
+    /* CORES PRIMÁRIAS - Destaques vibrantes */
+    --color-brand-primary: #5077fa; /* Azul elétrico */
+    --color-brand-secondary: #214ff3; /* Azul royal */
+
+    /* BORDAS - Definição elegante */
+    --color-border: #2a3446; /* Azul aço */
+
+    /* FEEDBACK - Cores vivas mas controladas */
+    --color-success: #4ade80; /* Verde menta */
+    --color-warning: #facc15; /* Amarelo ouro */
+    --color-error: #f87171; /* Vermelho coral */
+
+    /* CORES SECUNDÁRIAS - Toques especiais */
+    --color-brand-accent: #a78bfa; /* Lavanda */
+    --color-brand-tertiary: #f472b6; /* Rosa elétrico */
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
