@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Moon, Sun } from "lucide-react";
 import Link from "next/link";
 import { HiMenu, HiX } from "react-icons/hi";
@@ -10,21 +10,63 @@ export const Navbar = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("hero");
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
+  const updateActiveSection = useCallback(() => {
+    const sections = document.querySelectorAll("section");
+    const windowMiddle = window.scrollY + window.innerHeight / 2;
+
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop;
+      const sectionBottom = sectionTop + section.offsetHeight;
+
+      if (windowMiddle >= sectionTop && windowMiddle < sectionBottom) {
+        setActiveSection((prev) => (prev !== section.id ? section.id : prev));
+      }
+    });
+  }, []);
+
   useEffect(() => {
     setMounted(true);
-  }, []);
+
+    updateActiveSection();
+
+    let timeoutId: NodeJS.Timeout;
+    const handleScroll = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(updateActiveSection, 50);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    const handleLinkClick = (e: Event) => {
+      const target = e.currentTarget as HTMLAnchorElement;
+      const href = target.getAttribute("href");
+      if (href) {
+        setActiveSection(href.substring(1));
+      }
+    };
+
+    const links = document.querySelectorAll('a[href^="#"]');
+    links.forEach((link) => link.addEventListener("click", handleLinkClick));
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      links.forEach((link) =>
+        link.removeEventListener("click", handleLinkClick)
+      );
+    };
+  }, [updateActiveSection]);
 
   if (!mounted) return null;
 
   const navItems = [
-    { name: "Home", href: "#hero" },
-    { name: "Sobre", href: "#about" },
-    { name: "Skills", href: "#skills" },
-    { name: "Projetos", href: "#projects" },
-    { name: "Contato", href: "#footer" },
+    { name: "Home", href: "#hero", id: "hero" },
+    { name: "Sobre", href: "#about", id: "about" },
+    { name: "Skills", href: "#skills", id: "skills" },
+    { name: "Projetos", href: "#projects", id: "projects" },
   ];
 
   return (
@@ -37,7 +79,17 @@ export const Navbar = () => {
             <Link
               key={item.name}
               href={item.href}
-              className="hover:text-blue-500 transition-colors duration-300"
+              className={`hover:text-blue-500 transition-colors duration-300 ${
+                activeSection === item.id ? "text-blue-500 font-medium" : ""
+              }`}
+              onClick={(e) => {
+                e.preventDefault();
+                document.querySelector(item.href)?.scrollIntoView({
+                  behavior: "smooth",
+                  block: "center",
+                });
+                setActiveSection(item.id);
+              }}
             >
               {item.name}
             </Link>
@@ -69,21 +121,32 @@ export const Navbar = () => {
       <div
         className={`md:hidden px-4 transition-all duration-300 ease-in-out ${
           isOpen ? "max-h-screen py-4 opacity-100" : "max-h-0 opacity-0"
-        } overflow-hidden`}
+        } overflow-hidden bg-background-primary/95 dark:bg-background-primary/95`}
       >
         <ul className="flex flex-col space-y-4">
           {navItems.map((item) => (
             <li key={item.name}>
               <Link
                 href={item.href}
-                onClick={() => setIsOpen(false)}
-                className="block text-lg hover:text-brand-primary transition-colors"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.querySelector(item.href)?.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center",
+                  });
+                  setActiveSection(item.id);
+                  setIsOpen(false);
+                }}
+                className={`block text-lg transition-colors ${
+                  activeSection === item.id
+                    ? "text-blue-500 font-medium"
+                    : "hover:text-brand-primary"
+                }`}
               >
                 {item.name}
               </Link>
             </li>
           ))}
-
           <li>
             <button
               onClick={() => {
@@ -95,12 +158,12 @@ export const Navbar = () => {
             >
               {theme === "dark" ? (
                 <>
-                  <Sun className="w-5 h-5 " />
+                  <Sun className="w-5 h-5" />
                   <span>Modo Claro</span>
                 </>
               ) : (
                 <>
-                  <Moon className="w-5 h-5 " />
+                  <Moon className="w-5 h-5" />
                   <span>Modo Escuro</span>
                 </>
               )}
