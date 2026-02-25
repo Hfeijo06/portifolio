@@ -18,37 +18,48 @@ body {
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-background-primary: #f9fafb;
-  --color-background-secondary: #f0f2f5;
-  --color-background-accent: #f7f7ff;
-  --color-text-primary: #111827;
-  --color-text-secondary: #4b5563;
-  --color-text-heading: #111827;
-  --color-brand-primary: #3b82f6;
-  --color-brand-secondary: #2563eb;
-  --color-border: #d1d5db;
+  /* --- MODO CLARO: Estilo Revista Minimalista (Apple/Studio vibe) --- */
+  --color-background-primary: #ffffff;    
+  --color-background-secondary: #f4f4f5;  /* Zinc 100 */
+  --color-background-accent: #e4e4e7;     /* Zinc 200 */
+  
+  --color-text-primary: #18181b;          /* Zinc 900: Quase preto, muita leitura */
+  --color-text-secondary: #52525b;        /* Zinc 600 */
+  --color-text-heading: #09090b;          /* Zinc 950: Contraste total */
+  
+  /* A Cor de Destaque: Emerald/Cyan (Vibrante e Tech) */
+  --color-brand-primary: #059669;         /* Emerald 600: Cor de "sucesso" e código */
+  --color-brand-secondary: #047857;       
+  
+  --color-border: #e4e4e7;                /* Zinc 200 */
+  
   --color-success: #10b981;
   --color-warning: #f59e0b;
   --color-error: #ef4444;
-  --color-brand-accent: #8b5cf6;
-  --color-brand-tertiary: #ec4899;
+  
+  /* Cor de suporte para gradientes de impacto */
+  --color-brand-accent: #06b6d4;          /* Cyan 500 */
+  --color-brand-tertiary: #10b981;        
 }
 
 @layer theme {
   .dark {
-    --color-background-primary: #0a0e17;
-    --color-background-secondary: #131a2a;
-    --color-background-accent: #1d2638;
-    --color-text-primary: #e0e7ff;
-    --color-text-secondary: #94a3c2;
-    --color-text-heading: #ffffff;
-    --color-brand-primary: #5077fa;
-    --color-brand-secondary: #214ff3;
-    --color-border: #2a3446;
-    --color-success: #4ade80;
-    --color-warning: #facc15;
-    --color-error: #f87171;
-    --color-brand-accent: #a78bfa;
-    --color-brand-tertiary: #f472b6;
+    /* --- MODO ESCURO: "Midnight Premium" (Onde o show acontece) --- */
+    --color-background-primary: #09090b;   /* Zinc 950: O preto "deep" mais moderno hoje */
+    --color-background-secondary: #18181b; /* Zinc 900: Para os seus cards de projetos */
+    --color-background-accent: #27272a;    /* Zinc 800: Para destaques de hover */
+    
+    --color-text-primary: #d4d4d8;         /* Zinc 300: Elegante e legível */
+    --color-text-secondary: #a1a1aa;       /* Zinc 400: Para datas e metadados */
+    --color-text-heading: #ffffff;         /* Branco puro: Para o seu nome brilhar */
+    
+    /* Neon Emerald: O toque "Matrix" moderno */
+    --color-brand-primary: #10b981;        /* Emerald 500: Fica absurdo no fundo Zinc 950 */
+    --color-brand-secondary: #34d399;      
+    
+    --color-border: #27272a;               /* Zinc 800: Bordas quase invisíveis, muito finas */
+    
+    --color-brand-accent: #22d3ee;         /* Cyan 400 */
+    --color-brand-tertiary: #a3e635;       /* Lime 400: Opcional para detalhes "cyber" */
   }
 }

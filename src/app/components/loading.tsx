@@ -4,34 +4,40 @@ import { motion } from "framer-motion";
 
 export const Loading = () => {
   return (
-    <div className="fixed inset-0 z-50 bg-white dark:bg-gray-900 flex items-center justify-center">
+    <div className="fixed inset-0 z-[100] bg-background-primary flex items-center justify-center">
       <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
-        className="flex flex-col items-center space-y-6"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="flex flex-col items-center"
       >
         <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-          className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full"
-        ></motion.div>
-
-        <motion.span
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
-          className="text-gray-800 dark:text-white text-xl font-semibold tracking-wide"
+          animate={{ 
+            opacity: [0.5, 1, 0.5],
+            scale: [0.98, 1.02, 0.98] 
+          }}
+          transition={{ 
+            duration: 2, 
+            repeat: Infinity, 
+            ease: "easeInOut" 
+          }}
+          className="text-2xl font-bold tracking-tighter text-text-heading mb-8"
         >
-          Carregando...
-        </motion.span>
+          henrique<span className="text-brand-primary">.</span>feijó
+        </motion.div>
 
-        <motion.div
-          initial={{ width: 0 }}
-          animate={{ width: "100%" }}
-          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-          className="h-2 bg-blue-400 rounded-full mt-4 w-48"
-        ></motion.div>
+        <div className="w-32 h-[1px] bg-border relative overflow-hidden">
+          <motion.div
+            initial={{ x: "-100%" }}
+            animate={{ x: "100%" }}
+            transition={{ 
+              duration: 1.5, 
+              repeat: Infinity, 
+              ease: "linear" 
+            }}
+            className="absolute inset-0 bg-brand-primary"
+          />
+        </div>
       </motion.div>
     </div>
   );

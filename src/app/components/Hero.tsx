@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -13,43 +13,64 @@ const titles = [
 export const Hero = () => {
   return (
     <section
-      className="min-h-screen flex items-center justify-center px-6 text-center bg-background-primary"
+      className="relative min-h-screen flex items-center justify-center px-6 text-center bg-background-primary overflow-hidden"
       id="hero"
     >
-      <div>
-        <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-3xl md:text-5xl font-bold mb-4 text-text-heading"
-        >
-          Olá, eu sou Henrique
-        </motion.h1>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-brand-primary/10 blur-[120px] rounded-full" />
 
-        <motion.div
+      <div className="relative z-10 max-w-4xl">
+        <motion.span
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
+          transition={{ duration: 1 }}
+          className="text-brand-primary font-mono text-sm tracking-widest uppercase mb-4 block"
         >
+          Disponível para novos projetos
+        </motion.span>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-4xl md:text-7xl font-bold mb-6 text-text-heading tracking-tight"
+        >
+          Olá, eu sou <span className="text-brand-primary">Henrique</span>
+        </motion.h1>
+
+        <div className="h-12 mb-10">
           <AnimatedTitles />
-        </motion.div>
+        </div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 0.5 }}
+          transition={{ delay: 0.8, duration: 0.5 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <Link
             href="#projects"
-            className="mt-6 inline-block bg-brand-primary hover:bg-brand-secondary 
-                      text-white px-6 py-3 rounded-lg shadow-lg 
-                      hover:shadow-xl transition-all duration-300
-                      "
+            className="group relative px-8 py-4 bg-brand-primary text-background-primary font-medium rounded-full overflow-hidden transition-all duration-300 hover:scale-102 active:scale-95"
           >
-            Veja meus projetos
+            <span className="relative z-10 text-white">Veja meus projetos</span>
+            <div className="absolute inset-0 bg-brand-secondary/35 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-400" />
+          </Link>
+
+          <Link
+            href="#contato"
+            className="px-8 py-4 border border-border text-text-primary font-medium rounded-full hover:bg-background-secondary transition-all duration-300 active:scale-95"
+          >
+            Entre em contato
           </Link>
         </motion.div>
       </div>
+
+      <motion.div 
+        animate={{ y: [0, 10, 0] }}
+        transition={{ repeat: Infinity, duration: 2 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-text-secondary/30"
+      >
+        <div className="w-[1px] h-12 bg-gradient-to-b from-brand-primary to-transparent" />
+      </motion.div>
     </section>
   );
 };
@@ -60,20 +81,24 @@ const AnimatedTitles = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % titles.length);
-    }, 2500);
+    }, 3000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <motion.h2
-      key={index}
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10 }}
-      transition={{ duration: 0.5 }}
-      className="text-xl md:text-2xl text-brand-primary font-medium h-10"
-    >
-      {titles[index]}
-    </motion.h2>
+    <div className="relative overflow-hidden h-full">
+      <AnimatePresence mode="wait">
+        <motion.p
+          key={index}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+          className="text-xl md:text-2xl text-text-secondary font-light"
+        >
+          {titles[index]}
+        </motion.p>
+      </AnimatePresence>
+    </div>
   );
 };

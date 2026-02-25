@@ -16,48 +16,24 @@ export const Navbar = () => {
 
   const updateActiveSection = useCallback(() => {
     const sections = document.querySelectorAll("section");
-    const windowMiddle = window.scrollY + window.innerHeight / 2;
+    const windowMiddle = window.scrollY + window.innerHeight / 3; 
 
     sections.forEach((section) => {
       const sectionTop = section.offsetTop;
       const sectionBottom = sectionTop + section.offsetHeight;
 
       if (windowMiddle >= sectionTop && windowMiddle < sectionBottom) {
-        setActiveSection((prev) => (prev !== section.id ? section.id : prev));
+        setActiveSection(section.id);
       }
     });
   }, []);
 
   useEffect(() => {
     setMounted(true);
-
     updateActiveSection();
 
-    let timeoutId: NodeJS.Timeout;
-    const handleScroll = () => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(updateActiveSection, 50);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    const handleLinkClick = (e: Event) => {
-      const target = e.currentTarget as HTMLAnchorElement;
-      const href = target.getAttribute("href");
-      if (href) {
-        setActiveSection(href.substring(1));
-      }
-    };
-
-    const links = document.querySelectorAll('a[href^="#"]');
-    links.forEach((link) => link.addEventListener("click", handleLinkClick));
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      links.forEach((link) =>
-        link.removeEventListener("click", handleLinkClick)
-      );
-    };
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    return () => window.removeEventListener("scroll", updateActiveSection);
   }, [updateActiveSection]);
 
   if (!mounted) return null;
@@ -67,105 +43,98 @@ export const Navbar = () => {
     { name: "Sobre", href: "#about", id: "about" },
     { name: "Skills", href: "#skills", id: "skills" },
     { name: "Projetos", href: "#projects", id: "projects" },
+    { name: "Contatos", href: "#contact", id: "contact" },
   ];
 
-  return (
-    <header className="fixed top-0 w-full z-50 backdrop-blur bg-background-primary/70 dark:bg-background-primary/70 shadow-sm">
-      <nav className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-        <h1 className="text-xl font-bold">Henrique Feijó</h1>
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string, id: string) => {
+    e.preventDefault();
+    const target = document.querySelector(href);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      setActiveSection(id);
+      if (isOpen) setIsOpen(false);
+    }
+  };
 
-        <div className="hidden md:flex items-center space-x-6">
+  return (
+    <header className="fixed top-0 w-full z-50 backdrop-blur-md bg-background-primary/80 border-b border-border/40 transition-colors duration-300">
+      <nav className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+        <Link 
+          href="#hero" 
+          onClick={(e) => handleSmoothScroll(e, "#hero", "hero")}
+          className="text-lg font-bold tracking-tighter text-text-heading hover:opacity-80 transition-opacity"
+        >
+          henrique<span className="text-brand-primary">.</span>feijó
+        </Link>
+
+        <div className="hidden md:flex items-center space-x-8">
           {navItems.map((item) => (
             <Link
               key={item.name}
               href={item.href}
-              className={`hover:text-blue-500 transition-colors duration-300 ${
-                activeSection === item.id ? "text-blue-500 font-medium" : ""
+              className={`text-sm font-medium transition-all duration-300 relative group ${
+                activeSection === item.id 
+                  ? "text-brand-primary" 
+                  : "text-text-secondary hover:text-text-primary"
               }`}
-              onClick={(e) => {
-                e.preventDefault();
-                document.querySelector(item.href)?.scrollIntoView({
-                  behavior: "smooth",
-                  block: "center",
-                });
-                setActiveSection(item.id);
-              }}
+              onClick={(e) => handleSmoothScroll(e, item.href, item.id)}
             >
               {item.name}
+              <span className={`absolute -bottom-1 left-0 w-full h-[1px] bg-brand-primary origin-left transition-transform duration-300 ${
+                activeSection === item.id ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+              }`} />
             </Link>
           ))}
-          {mounted && (
-            <button
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition cursor-pointer"
-              aria-label="Toggle Theme"
-            >
-              {theme === "dark" ? (
-                <Sun className="w-5 h-5" />
-              ) : (
-                <Moon className="w-5 h-5" />
-              )}
-            </button>
-          )}
+
+          <button
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            className="p-2 rounded-full bg-background-accent/50 text-text-primary hover:text-brand-primary transition-colors cursor-pointer"
+            aria-label="Toggle Theme"
+          >
+            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
         </div>
 
         <button
           onClick={toggleMenu}
-          className="md:hidden text-2xl focus:outline-none"
+          className="md:hidden p-2 text-text-primary focus:outline-none"
           aria-label="Toggle menu"
         >
-          {isOpen ? <HiX /> : <HiMenu />}
+          {isOpen ? <HiX size={24} /> : <HiMenu size={24} />}
         </button>
       </nav>
 
       <div
-        className={`md:hidden px-4 transition-all duration-300 ease-in-out ${
-          isOpen ? "max-h-screen py-4 opacity-100" : "max-h-0 opacity-0"
-        } overflow-hidden bg-background-primary/95 dark:bg-background-primary/95`}
+        className={`md:hidden absolute top-full left-0 w-full transition-all duration-300 ease-in-out border-b border-border/40 overflow-hidden ${
+          isOpen ? "max-h-96 opacity-100 bg-background-primary" : "max-h-0 opacity-0"
+        }`}
       >
-        <ul className="flex flex-col space-y-4">
+        <ul className="px-6 py-6 space-y-4">
           {navItems.map((item) => (
             <li key={item.name}>
               <Link
                 href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.querySelector(item.href)?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "center",
-                  });
-                  setActiveSection(item.id);
-                  setIsOpen(false);
-                }}
-                className={`block text-lg transition-colors ${
-                  activeSection === item.id
-                    ? "text-blue-500 font-medium"
-                    : "hover:text-brand-primary"
+                onClick={(e) => handleSmoothScroll(e, item.href, item.id)}
+                className={`block text-lg font-medium ${
+                  activeSection === item.id ? "text-brand-primary" : "text-text-secondary"
                 }`}
               >
                 {item.name}
               </Link>
             </li>
           ))}
-          <li>
+          <li className="pt-4 border-t border-border/40">
             <button
               onClick={() => {
                 setTheme(theme === "dark" ? "light" : "dark");
                 setIsOpen(false);
               }}
-              className="flex items-center gap-2 p-2 rounded-lg hover:bg-background-accent transition-colors w-full text-lg"
-              aria-label="Alternar tema"
+              className="flex items-center gap-3 text-text-primary"
             >
               {theme === "dark" ? (
-                <>
-                  <Sun className="w-5 h-5" />
-                  <span>Modo Claro</span>
-                </>
+                <> <Sun size={20} /> <span>Modo Claro</span> </>
               ) : (
-                <>
-                  <Moon className="w-5 h-5" />
-                  <span>Modo Escuro</span>
-                </>
+                <> <Moon size={20} /> <span>Modo Escuro</span> </>
               )}
             </button>
           </li>
