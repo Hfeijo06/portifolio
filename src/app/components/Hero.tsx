@@ -11,6 +11,20 @@ const titles = [
 ];
 
 export const Hero = () => {
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("hero")
+
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string, id: string) => {
+    e.preventDefault();
+    const target = document.querySelector(href);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      setActiveSection(id);
+      if (isOpen) setIsOpen(false);
+    }
+  };
+
   return (
     <section
       className="relative min-h-screen flex items-center justify-center px-6 text-center bg-background-primary overflow-hidden"
@@ -49,6 +63,7 @@ export const Hero = () => {
         >
           <Link
             href="#projects"
+            onClick={(e) => handleSmoothScroll(e, "#projects", "projects")}
             className="group relative px-8 py-4 bg-brand-primary text-background-primary font-medium rounded-full overflow-hidden transition-all duration-300 hover:scale-102 active:scale-95"
           >
             <span className="relative z-10 text-white">Veja meus projetos</span>
@@ -56,7 +71,8 @@ export const Hero = () => {
           </Link>
 
           <Link
-            href="#contato"
+            href="#contact"
+            onClick={(e) => handleSmoothScroll(e, "#contact", "contact")}
             className="px-8 py-4 border border-border text-text-primary font-medium rounded-full hover:bg-background-secondary transition-all duration-300 active:scale-95"
           >
             Entre em contato

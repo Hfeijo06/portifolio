@@ -12,8 +12,8 @@ export const Footer = () => {
     <footer className="bg-background-primary border-t border-border/40 py-12 px-6 relative overflow-hidden">
       <div className="max-w-6xl mx-auto flex flex-col items-center">
         
-        <div className="mb-8">
-          <span className="text-lg font-bold tracking-tighter text-text-heading">
+        <div className="mb-8 flex flex-col text-center">
+          <span className="text-lg font-bold tracking-tighter text-text-center">
             henrique<span className="text-brand-primary">.</span>feijó
           </span>
           <p className="text-xs text-text-secondary font-mono uppercase tracking-[0.2em] mt-2">

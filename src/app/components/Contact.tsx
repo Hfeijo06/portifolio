@@ -7,7 +7,6 @@ export const Contact = () => {
   const socialLinks = [
     { name: "LinkedIn", href: "https://linkedin.com/in/seulinkedin" },
     { name: "GitHub", href: "https://github.com/seuusuario" },
-    { name: "Instagram", href: "https://instagram.com/seuusuario" },
   ];
 
   return (
@@ -46,7 +45,7 @@ export const Contact = () => {
             href="mailto:henrique@exemplo.com"
             className="text-2xl md:text-5xl font-medium text-text-primary hover:text-brand-primary transition-all duration-500 flex items-center justify-between"
           >
-            henrique@exemplo.com
+            henriquefeijo06@gmail.com
             <motion.div
               whileHover={{ rotate: 45 }}
               className="text-brand-primary transition-transform duration-300"
