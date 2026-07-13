@@ -41,7 +41,7 @@ export const About = () => {
                   src="/me.jpg" 
                   alt="Henrique Feijó"
                   fill
-                  className="object-cover grayscale hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
+                  className="object-cover transition-all duration-700 scale-105 group-hover:scale-100"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background-primary/40 to-transparent" />
               </div>

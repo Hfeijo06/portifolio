@@ -1,42 +1,23 @@
-"use client";
-import { useEffect, useState } from "react";
-import { Loading } from "./components/loading";
+import { SplashScreen } from "./components/SplashScreen";
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
 import { About } from "./components/About";
 import { Skills } from "./components/Skills";
 import { Projects } from "./components/Projects";
-import { Footer } from "./components/Footer";
 import { Contact } from "./components/Contact";
+import { Footer } from "./components/Footer";
 
 export default function Home() {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1500);
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (loading) return <Loading />;
   return (
-    <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-500 scroll-smooth">
+    <div className="bg-background-primary text-text-primary transition-colors duration-500">
+      <SplashScreen />
       <Navbar />
       <Hero />
-      <section id="about">
-        <About />
-      </section>
-      <section id="skills">
-        <Skills />
-      </section>
-      <section id="projects">
-        <Projects />
-      </section>
-      <section id="contact">
-        <Contact />
-      </section>
-      <section id="footer">
-        <Footer />
-      </section>
+      <About />
+      <Skills />
+      <Projects />
+      <Contact />
+      <Footer />
     </div>
   );
 }

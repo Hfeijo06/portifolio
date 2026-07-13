@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { Moon, Sun } from "lucide-react";
+import { Download, Moon, Sun } from "lucide-react";
 import Link from "next/link";
 import { HiMenu, HiX } from "react-icons/hi";
 import { useTheme } from "next-themes";
+import { smoothScrollTo } from "../lib/smooth-scroll";
 
 export const Navbar = () => {
   const { theme, setTheme } = useTheme();
@@ -47,13 +48,9 @@ export const Navbar = () => {
   ];
 
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string, id: string) => {
-    e.preventDefault();
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
-      setActiveSection(id);
-      if (isOpen) setIsOpen(false);
-    }
+    smoothScrollTo(e, href);
+    setActiveSection(id);
+    if (isOpen) setIsOpen(false);
   };
 
   return (
@@ -85,6 +82,15 @@ export const Navbar = () => {
               }`} />
             </Link>
           ))}
+
+          <a
+            href="/cv.pdf"
+            download="Henrique-Feijo-CV.pdf"
+            className="flex items-center gap-2 px-4 py-2 text-sm font-medium border border-brand-primary/50 text-brand-primary rounded-full hover:bg-brand-primary/10 transition-colors"
+          >
+            <Download size={14} />
+            CV
+          </a>
 
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
@@ -124,6 +130,16 @@ export const Navbar = () => {
             </li>
           ))}
           <li className="pt-4 border-t border-border/40">
+            <a
+              href="/cv.pdf"
+              download="Henrique-Feijo-CV.pdf"
+              className="flex items-center gap-3 text-brand-primary font-medium"
+            >
+              <Download size={20} />
+              <span>Baixar CV</span>
+            </a>
+          </li>
+          <li>
             <button
               onClick={() => {
                 setTheme(theme === "dark" ? "light" : "dark");

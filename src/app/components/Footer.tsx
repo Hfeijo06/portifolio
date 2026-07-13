@@ -13,7 +13,7 @@ export const Footer = () => {
       <div className="max-w-6xl mx-auto flex flex-col items-center">
         
         <div className="mb-8 flex flex-col text-center">
-          <span className="text-lg font-bold tracking-tighter text-text-center">
+          <span className="text-lg font-bold tracking-tighter text-text-heading">
             henrique<span className="text-brand-primary">.</span>feijó
           </span>
           <p className="text-xs text-text-secondary font-mono uppercase tracking-[0.2em] mt-2">
@@ -23,7 +23,7 @@ export const Footer = () => {
 
         <div className="flex justify-center gap-8 mb-8">
           <a
-            href="https://github.com/seuusuario"
+            href="https://github.com/Hfeijo06"
             target="_blank"
             rel="noopener noreferrer"
             className="group flex flex-col items-center gap-2 text-text-secondary hover:text-brand-primary transition-all duration-300"
@@ -32,7 +32,7 @@ export const Footer = () => {
             <span className="text-[10px] font-mono opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-widest">Github</span>
           </a>
           <a
-            href="https://linkedin.com/in/seulinkedin"
+            href="https://www.linkedin.com/in/henrique-feij%C3%B3"
             target="_blank"
             rel="noopener noreferrer"
             className="group flex flex-col items-center gap-2 text-text-secondary hover:text-brand-primary transition-all duration-300"

@@ -2,17 +2,22 @@
 
 html {
   overflow-y: scroll;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-background-accent) transparent;
 }
 
 html::-webkit-scrollbar {
-  display: none;
+  width: 8px;
 }
 
-body {
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+html::-webkit-scrollbar-thumb {
+  background: var(--color-background-accent);
+  border-radius: 9999px;
+}
+
+html::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 @custom-variant dark (&:where(.dark, .dark *));

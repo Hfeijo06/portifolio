@@ -5,8 +5,8 @@ import { ArrowUpRight } from "lucide-react";
 
 export const Contact = () => {
   const socialLinks = [
-    { name: "LinkedIn", href: "https://linkedin.com/in/seulinkedin" },
-    { name: "GitHub", href: "https://github.com/seuusuario" },
+    { name: "LinkedIn", href: "https://www.linkedin.com/in/henrique-feij%C3%B3" },
+    { name: "GitHub", href: "https://github.com/Hfeijo06" },
   ];
 
   return (
@@ -42,7 +42,7 @@ export const Contact = () => {
 
         <div className="py-10 border-y border-border/30 group">
           <a 
-            href="mailto:henrique@exemplo.com"
+            href="mailto:henriquefeijo06@gmail.com"
             className="text-2xl md:text-5xl font-medium text-text-primary hover:text-brand-primary transition-all duration-500 flex items-center justify-between"
           >
             henriquefeijo06@gmail.com
@@ -72,7 +72,7 @@ export const Contact = () => {
           </div>
           
           <p className="text-xs text-text-secondary/50 font-mono uppercase tracking-widest">
-            Disponível para contratos CLT<span className="lowercase">s</span> e PJ<span className="lowercase">s</span>
+            Disponível para contratos CLT e PJ
           </p>
         </div>
       </motion.div>

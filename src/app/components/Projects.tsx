@@ -1,27 +1,44 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
-import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
+import { FaExternalLinkAlt, FaGithub, FaRegFolder } from "react-icons/fa";
 
-const projects = [
+type Project = {
+  title: string;
+  description: string;
+  techs: string[];
+  github: string;
+  demo?: string;
+};
+
+const projects: Project[] = [
+  {
+    title: "Sistema de Gestão de Vendas",
+    description:
+      "Sistema completo desenvolvido como TCC para automatizar a operação de um depósito de água e gás: cadastro de clientes e produtos, controle de estoque em tempo real, vendas, entregas, autenticação de usuários e relatórios com exportação em PDF e Excel.",
+    techs: ["PHP", "MySQL", "JavaScript", "Bootstrap"],
+    github: "https://github.com/Hfeijo06/Sistema-TCC",
+  },
+  {
+    title: "Reviews Project",
+    description:
+      "Aplicação de página de reviews construída com React e Tailwind CSS no front-end e Node.js no back-end, utilizando Vite como build tool e ESLint para qualidade de código.",
+    techs: ["React", "Tailwind CSS", "Node.js", "Vite"],
+    github: "https://github.com/Hfeijo06/Reviews-Project",
+  },
   {
     title: "Portfólio Pessoal",
     description:
-      "Um site moderno para apresentar minhas habilidades e projetos, com foco em performance e animações fluidas.",
-    techs: ["Next.js", "Tailwind CSS", "Framer Motion"],
-    image: "/projects/portfolio.png",
-    github: "https://github.com/seuusuario/portfolio",
-    demo: "https://meuportfolio.com",
+      "Este site: um portfólio one-page com dark mode, animações fluidas e foco em performance e SEO, renderizado estaticamente com Next.js.",
+    techs: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    github: "https://github.com/Hfeijo06/portifolio",
   },
   {
-    title: "Dashboard Financeiro",
+    title: "Music Player",
     description:
-      "Aplicação para controle de gastos e receitas com gráficos dinâmicos e autenticação segura.",
-    techs: ["React", "Firebase", "Chart.js"],
-    image: "/projects/dashboard.png",
-    github: "https://github.com/seuusuario/dashboard",
-    demo: "https://dashboarddemo.com",
+      "Front-end de um player de música construído com HTML e CSS puros, com foco em fidelidade de layout e estilização de componentes de interface.",
+    techs: ["HTML5", "CSS3"],
+    github: "https://github.com/Hfeijo06/Music-Player",
   },
 ];
 
@@ -52,85 +69,78 @@ export const Projects = () => {
         </motion.h2>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-10">
+      <div className="grid md:grid-cols-2 gap-8">
         {projects.map((project, i) => (
           <motion.article
             key={project.title}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: i * 0.2 }}
+            transition={{ duration: 0.6, delay: i * 0.1 }}
             viewport={{ once: true }}
-            className="group relative flex flex-col rounded-2xl border border-border/50 bg-background-secondary/30 backdrop-blur-sm overflow-hidden hover:border-brand-primary/50 transition-all duration-500 hover:shadow-2xl hover:shadow-brand-primary/10"
+            className="group relative flex flex-col p-8 rounded-2xl border border-border/50 bg-background-secondary/30 backdrop-blur-sm hover:border-brand-primary/50 transition-all duration-500 hover:shadow-2xl hover:shadow-brand-primary/10 hover:-translate-y-1"
           >
-            {/* Imagem com Overlay Tech */}
-            <div className="relative h-64 w-full overflow-hidden">
-              <Image
-                src={project.image}
-                alt={project.title}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0 opacity-80 group-hover:opacity-100"
-              />
-              <div className="absolute inset-0 bg-brand-primary/20 mix-blend-multiply opacity-30 group-hover:opacity-0 transition-opacity duration-500" />
-              <div className="absolute inset-0 bg-gradient-to-t from-background-secondary via-transparent to-transparent" />
-            </div>
-
-            {/* Conteúdo do Card */}
-            <div className="p-8 flex flex-col flex-grow">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-2xl font-bold text-text-heading tracking-tight group-hover:text-brand-primary transition-colors">
-                  {project.title}
-                </h3>
-                <div className="flex gap-4">
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-text-secondary hover:text-brand-primary transition-all hover:scale-110"
-                    title="Ver Código"
-                  >
-                    <FaGithub size={22} />
-                  </a>
+            <div className="flex justify-between items-center mb-6">
+              <div className="text-brand-primary">
+                <FaRegFolder size={32} strokeWidth={1} />
+              </div>
+              <div className="flex gap-4">
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-text-secondary hover:text-brand-primary transition-all hover:scale-110"
+                  title="Ver Código"
+                  aria-label={`Código de ${project.title} no GitHub`}
+                >
+                  <FaGithub size={22} />
+                </a>
+                {project.demo && (
                   <a
                     href={project.demo}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-text-secondary hover:text-brand-primary transition-all hover:scale-110"
                     title="Live Demo"
+                    aria-label={`Demo de ${project.title}`}
                   >
                     <FaExternalLinkAlt size={20} />
                   </a>
-                </div>
+                )}
               </div>
+            </div>
 
-              <p className="text-text-secondary font-light leading-relaxed mb-6 flex-grow">
-                {project.description}
-              </p>
+            <h3 className="text-2xl font-bold text-text-heading tracking-tight group-hover:text-brand-primary transition-colors mb-4">
+              {project.title}
+            </h3>
 
-              {/* Tecnologias estilo "Tag Minimalista" */}
-              <div className="flex flex-wrap gap-3">
-                {project.techs.map((tech) => (
-                  <span
-                    key={tech}
-                    className="text-[10px] font-mono uppercase tracking-widest text-text-secondary border border-border px-2 py-1 rounded group-hover:border-brand-primary/30 group-hover:text-text-primary transition-colors"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
+            <p className="text-text-secondary font-light leading-relaxed mb-6 flex-grow">
+              {project.description}
+            </p>
+
+            <div className="flex flex-wrap gap-3">
+              {project.techs.map((tech) => (
+                <span
+                  key={tech}
+                  className="text-[10px] font-mono uppercase tracking-widest text-text-secondary border border-border px-2 py-1 rounded group-hover:border-brand-primary/30 group-hover:text-text-primary transition-colors"
+                >
+                  {tech}
+                </span>
+              ))}
             </div>
           </motion.article>
         ))}
       </div>
-      
-      {/* Botão para ver mais (Opcional, mas dá um toque extra) */}
-      <motion.div 
+
+      <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
         className="mt-16 flex justify-center"
       >
-        <a 
-          href="https://github.com/seuusuario" 
+        <a
+          href="https://github.com/Hfeijo06?tab=repositories"
           target="_blank"
+          rel="noopener noreferrer"
           className="text-sm font-mono text-brand-primary border-b border-brand-primary pb-1 hover:border-text-heading hover:text-text-heading transition-all"
         >
           Ver mais no GitHub
