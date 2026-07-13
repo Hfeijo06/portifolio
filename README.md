@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfólio — Henrique Feijó
 
-## Getting Started
+Portfólio pessoal one-page, com dark mode, animações fluidas e foco em performance e SEO. O site é totalmente renderizado de forma estática (SSG), com todo o conteúdo presente no HTML servido.
 
-First, run the development server:
+## ✨ Funcionalidades
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Dark / Light mode** com persistência de preferência (`next-themes`)
+- **Animações** de entrada, hover e scroll com Framer Motion, respeitando `prefers-reduced-motion`
+- **Scrollspy** na navegação — a seção ativa é destacada conforme o scroll
+- **Splash screen** animada que não bloqueia a indexação do conteúdo
+- **SEO**: metadata completa com OpenGraph e Twitter card, página pré-renderizada como estática
+- **Responsivo**, com menu mobile e layout adaptado para todas as telas
+- Botão de **download do CV** na navegação
+
+## 🛠️ Tecnologias
+
+- [Next.js 15](https://nextjs.org) (App Router)
+- [React 19](https://react.dev)
+- [TypeScript](https://www.typescriptlang.org)
+- [Tailwind CSS 4](https://tailwindcss.com) com tema customizado via `@theme`
+- [Framer Motion](https://motion.dev) para animações
+- [next-themes](https://github.com/pacocoursey/next-themes) para o dark mode
+- [Lucide](https://lucide.dev) e [React Icons](https://react-icons.github.io/react-icons/) para ícones
+
+## 📂 Estrutura
+
+```
+src/app/
+├── layout.tsx          # Metadata, tema e providers globais
+├── page.tsx            # Composição das seções (Server Component)
+├── globals.css         # Tema (cores light/dark) e estilos globais
+├── lib/
+│   └── smooth-scroll.ts
+└── components/
+    ├── SplashScreen.tsx
+    ├── Navbar.tsx
+    ├── Hero.tsx
+    ├── About.tsx
+    ├── Skills.tsx
+    ├── Projects.tsx
+    ├── Contact.tsx
+    └── Footer.tsx
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Rodando localmente
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Pré-requisitos: Node.js 18+ e [pnpm](https://pnpm.io).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Instalar as dependências
+pnpm install
 
-## Learn More
+# Ambiente de desenvolvimento
+pnpm dev
 
-To learn more about Next.js, take a look at the following resources:
+# Build de produção
+pnpm build
+pnpm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+O site fica disponível em [http://localhost:3000](http://localhost:3000).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📬 Contato
 
-## Deploy on Vercel
+- **GitHub**: [@Hfeijo06](https://github.com/Hfeijo06)
+- **LinkedIn**: [henrique-feijó](https://www.linkedin.com/in/henrique-feij%C3%B3)
+- **E-mail**: [henriquefeijo06@gmail.com](mailto:henriquefeijo06@gmail.com)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+© Henrique Feijó — Sinta-se à vontade para explorar o código, mas o conteúdo e a identidade visual são de uso pessoal.
